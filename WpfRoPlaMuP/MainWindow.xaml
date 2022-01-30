@@ -1,0 +1,42 @@
+﻿<Window x:Class="DagalPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DagalPlayer"
+        mc:Ignorable="d"
+        Title="Dagal" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ToolBar Grid.Column="0" Grid.Row="0">
+            <Button ToolTip="Neuer Ordner" Click="bNewItem_Click" x:Name="bNewFolder">
+                <Image Source="/Icons/AddFolder.png" />
+            </Button>
+            <Button ToolTip="Neue Szene" Click="bNewItem_Click" x:Name="bNewItem">
+                <Image Source="/Icons/AddDoc.png"/>
+            </Button>
+            <Button ToolTip="Löschen" Click="bDelete_Click">
+                <Image Source="/Icons/Remove.png"/>
+            </Button>
+            <Button ToolTip="Abspielen" Click="bPlay_Click">
+                <Image Source="/Icons/Play.png" />
+            </Button>
+            <Button ToolTip="Stoppen" Click="bStop_Click">
+                <Image Source="/Icons/Stop.png" />
+            </Button>
+        </ToolBar>
+        <TreeView x:Name="trvScenes" Grid.Column="0" Grid.Row="1" SelectedItemChanged="trvScenes_SelectedItemChanged">
+                
+        </TreeView>
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" x:Name="spTracks">
+            
+        </StackPanel>
+    </Grid>
+</Window>

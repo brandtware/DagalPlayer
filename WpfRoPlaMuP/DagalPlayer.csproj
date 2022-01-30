@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\AddDoc.png" />
+    <None Remove="Icons\AddFolder.png" />
+    <None Remove="Icons\Folder.png" />
+    <None Remove="Icons\Play.png" />
+    <None Remove="Icons\Remove.png" />
+    <None Remove="Icons\Stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\AddDoc.png" />
+    <Resource Include="Icons\AddFolder.png" />
+    <Resource Include="Icons\Folder.png" />
+    <Resource Include="Icons\Play.png" />
+    <Resource Include="Icons\Remove.png" />
+    <Resource Include="Icons\Stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.0.1" />
+    <PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
+  </ItemGroup>
+
+</Project>
