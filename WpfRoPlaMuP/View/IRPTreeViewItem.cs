@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace DagalPlayer
@@ -13,5 +14,6 @@ namespace DagalPlayer
         string Description { get; set; }
         ItemCollection Items { get; }
         string NodeType { get; }
+        DependencyObject Parent { get; }
     }
 }

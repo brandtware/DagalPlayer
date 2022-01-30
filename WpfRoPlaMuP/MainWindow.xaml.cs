@@ -20,30 +20,42 @@ namespace DagalPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public RPSceneTreeViewItem? activeScene { get; set; } = null;
+        public RPSceneTreeViewItem? selectedScene { get; set; } = null;
+
         public MainWindow()
         {
             InitializeComponent();
-            trvScenes.Items.Add(new FolderTreeViewItem() { Header = "Szenenliste", IsExpanded = true });
+            trvScenes.Items.Add(new RPFolderTreeViewItem() { Header = "Szenenliste", IsExpanded = true });
         }
 
         private void trvScenes_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
+            spTracks.Children.Clear();
+            if (e.NewValue is RPFolderTreeViewItem fld)
+            {
+                new RPFolderRenderer(fld, spTracks);
+            }
+            else if (e.NewValue is RPSceneTreeViewItem scn)
+            {
+                selectedScene = scn;
+                new RPSceneRenderer (scn, spTracks);
+            }
         }
 
         private void bNewItem_Click(object sender, RoutedEventArgs e)
         {
             var b = sender as Button;
-            TreeViewItem tvi = b.Name == "bNewFolder" ? new FolderTreeViewItem() : new SceneTreeViewItem();
+            TreeViewItem tvi = b.Name == "bNewFolder" ? new RPFolderTreeViewItem() : new RPSceneTreeViewItem();
             if (trvScenes.SelectedItem != null)
             {
-                if (trvScenes.SelectedItem is FolderTreeViewItem ftvi)
+                if (trvScenes.SelectedItem is RPFolderTreeViewItem ftvi)
                 {
                     ftvi.Items.Add(tvi);
                 }
                 else
                 {
-                    if (((TreeViewItem)trvScenes.SelectedItem)?.Parent is FolderTreeViewItem f)
+                    if (((TreeViewItem)trvScenes.SelectedItem)?.Parent is RPFolderTreeViewItem f)
                     {
                         f.Items.Add(tvi);
                     }
@@ -51,24 +63,19 @@ namespace DagalPlayer
             }
             else
             {
-                trvScenes.Items.Add(tvi);
+                ((TreeViewItem)trvScenes.Items[0]).Items.Add(tvi);
             }
-        }
-
-        private void bNewScene_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void bDelete_Click(object sender, RoutedEventArgs e)
         {
             var t = trvScenes.SelectedItem as IRPTreeViewItem;
-            if (t != null)
+            if (t != null && !(t.Parent is TreeView)) // Root-Level nicht löschbar
             {
                 string frage;
                 if (t.Items.Count > 0)
                 {
-                    frage = $"Möchten Sie den Ordner '{ t.Text }' inkl. der { (t as FolderTreeViewItem)?.Items.Count } Unterelemente löschen?";
+                    frage = $"Möchten Sie den Ordner '{ t.Text }' inkl. der { (t as RPFolderTreeViewItem)?.Items.Count } Unterelemente löschen?";
                 }
                 else
                 {
@@ -76,20 +83,31 @@ namespace DagalPlayer
                 }
                 if (MessageBox.Show(frage, "Löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    var tvi = t as TreeViewItem;
-                    (tvi.Parent as TreeViewItem)?.Items.Remove(tvi);
+                    (t.Parent as IRPTreeViewItem)?.Items.Remove(t);
                 }
             }
         }
 
         private void bPlay_Click(object sender, RoutedEventArgs e)
         {
-
+            if (activeScene != null)
+            {
+                foreach (var c in activeScene.Channels)
+                {
+                    c.Play();
+                }
+            }
         }
 
         private void bStop_Click(object sender, RoutedEventArgs e)
         {
-
+            if (activeScene != null)
+            {
+                foreach (var c in activeScene.Channels)
+                {
+                    c.Stop();
+                }
+            }
         }
     }
 }

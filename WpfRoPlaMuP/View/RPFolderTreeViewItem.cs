@@ -8,11 +8,11 @@ using System.Windows.Media.Imaging;
 
 namespace DagalPlayer
 {
-    public class FolderTreeViewItem : TreeViewItem, IRPTreeViewItem
+    public class RPFolderTreeViewItem : TreeViewItem, IRPTreeViewItem
     {
         TextBlock tb = new TextBlock() { Text = "Neuer Ordner" };
 
-        public FolderTreeViewItem()
+        public RPFolderTreeViewItem()
         {
             StackPanel sp = new StackPanel() { Orientation = Orientation.Horizontal };
             Image img = new Image() { Source = new BitmapImage(new Uri(@"/Icons/Folder.png", UriKind.RelativeOrAbsolute)) };

@@ -7,9 +7,9 @@ using System.Windows.Controls;
 
 namespace DagalPlayer
 {
-    public class SceneTreeViewItem : TreeViewItem, IRPTreeViewItem
+    public class RPSceneTreeViewItem : TreeViewItem, IRPTreeViewItem
     {
-        public SceneTreeViewItem()
+        public RPSceneTreeViewItem()
         {
             this.Header = "Neue Szene";
         }
@@ -21,7 +21,7 @@ namespace DagalPlayer
         }
 
         public string NodeType => "Szene";
-        public List<RPAudioTrack> Tracks { get; set; } = new List<RPAudioTrack>();
+        public List<RPAudioPlayer> Channels { get; set; } = new List<RPAudioPlayer>();
         public string Description { get; set; } = String.Empty;
     }
 }
