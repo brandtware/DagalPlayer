@@ -17,6 +17,11 @@ namespace DagalPlayer
         int currentTrack = 0;
         bool closing = false;
 
+        public RPAudioPlayer() 
+        {
+            Tracks = new List<RPAudioTrack>();
+        }
+
         public RPAudioPlayer(List<RPAudioTrack> tracks, RPTrackPlayMode pm = RPTrackPlayMode.linear)
         {
             if (tracks.Count > 0)
@@ -32,13 +37,16 @@ namespace DagalPlayer
 
         public void Init()
         {
-            wo = new WaveOutEvent();
-            if (PlayMode == RPTrackPlayMode.random)
+            if (Tracks?.Count > 0)
             {
-                CurrentTrack = App.rnd.Next(Tracks.Count);
+                wo = new WaveOutEvent();
+                if (PlayMode == RPTrackPlayMode.random)
+                {
+                    CurrentTrack = App.rnd.Next(Tracks.Count);
+                }
+                wo.PlaybackStopped += Wo_PlaybackStopped;
+                SetTrack(currentTrack);
             }
-            wo.PlaybackStopped += Wo_PlaybackStopped; 
-            SetTrack(currentTrack);
         }
 
 
@@ -65,7 +73,7 @@ namespace DagalPlayer
         private void SetTrack(int pos)
         {
             DisposeReader();
-            if (pos >= 0 && pos < Tracks.Count)
+            if (pos >= 0 && pos < Tracks?.Count)
             {
                 var track = Tracks[pos];
                 TimeSpan tracklength;
@@ -113,6 +121,7 @@ namespace DagalPlayer
         public void Stop()
         {
             wo?.Stop();
+            closing = true;
         }
 
         private void Wo_PlaybackStopped(object sender, StoppedEventArgs e)
@@ -120,6 +129,10 @@ namespace DagalPlayer
             if (!closing)
             {
                 NextTrack();
+            }
+            else
+            { 
+                closing = false;
             }
         }
 

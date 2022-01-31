@@ -90,10 +90,15 @@ namespace DagalPlayer
 
         private void bPlay_Click(object sender, RoutedEventArgs e)
         {
+            if (activeScene == null && trvScenes.SelectedItem is RPSceneTreeViewItem sc)
+            { 
+                activeScene = sc; 
+            }
             if (activeScene != null)
             {
                 foreach (var c in activeScene.Channels)
                 {
+                    c.Init();
                     c.Play();
                 }
             }
