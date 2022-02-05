@@ -27,7 +27,7 @@ namespace DagalPlayer
                                         AddChannelControls(chan, stvi.Channels.Count, container);
                                     };
 
-            //TODO Binding
+
             textbox.DataContext = stvi;
             textbox.SetBinding(TextBox.TextProperty,
                                 new Binding ()
@@ -43,6 +43,8 @@ namespace DagalPlayer
                                     Path = new PropertyPath("Text"),
                                     Mode = BindingMode.TwoWay
                                 });
+            // Bindung an TreeView
+            tbTitle.TextChanged += (o,e) => { stvi.Text = (o as TextBox)?.Text ?? ""; };
 
             container.Children.Add(title);
             container.Children.Add(tbTitle);

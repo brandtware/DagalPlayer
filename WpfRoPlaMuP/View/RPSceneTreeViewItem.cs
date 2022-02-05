@@ -11,19 +11,26 @@ namespace DagalPlayer
 {
     public class RPSceneTreeViewItem : TreeViewItem, IRPTreeViewItem
     {
+        TextBlock headerText = new TextBlock();
+
         public RPSceneTreeViewItem()
         {
-            this.Text = "Neue Szene";
-            this.DataContext = this;
-            this.SetBinding(TreeViewItem.HeaderProperty,
-                    new Binding()
-                    {
-                        Path = new PropertyPath("Text"),
-                        Mode = BindingMode.TwoWay
-                    });
+            this.headerText.Text = "Neue Szene";
+            this.Header = headerText;
         }
 
-        public string Text { get; set; }
+        public string Text
+        {
+            get 
+            {
+                return headerText.Text;
+            }
+            set
+            {
+                headerText.Text = value;
+            }
+        }
+
 
         public string NodeType => "Szene";
         public List<RPAudioPlayer> Channels { get; set; } = new List<RPAudioPlayer>();
