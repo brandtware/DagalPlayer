@@ -85,7 +85,16 @@ namespace DagalPlayer
                     lv.Items.Add(t);
                 }
             };
+            var mi2 = new MenuItem() { Header = "entfernen" };
+            mi2.Click += (o, e) =>
+            {
+                if (lv.SelectedItems.Count > 0)
+                {
+                    lv.Items.Remove(lv.SelectedItems[0]);
+                }
+            };
             cm.Items.Add(mi);
+            cm.Items.Add(mi2);
             lv.ContextMenu = cm;
 
             container.Children.Add(trackName);

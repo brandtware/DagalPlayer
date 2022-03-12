@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DagalPlayer.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -122,7 +123,7 @@ namespace DagalPlayer
             var ofd = new System.Windows.Forms.OpenFileDialog() { Filter = FILE_FILTER };
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             { 
-            
+                PlaylistSerializer.Load (ofd.FileName, trvScenes);
             }
         }
 
@@ -131,7 +132,7 @@ namespace DagalPlayer
             var sfd = new System.Windows.Forms.SaveFileDialog() { Filter = FILE_FILTER };
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-
+                PlaylistSerializer.Save (sfd.FileName, trvScenes);
             }
         }
 
