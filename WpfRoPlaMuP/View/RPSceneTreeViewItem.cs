@@ -21,14 +21,8 @@ namespace DagalPlayer
 
         public string Text
         {
-            get 
-            {
-                return headerText.Text;
-            }
-            set
-            {
-                headerText.Text = value;
-            }
+            get { return headerText.Text; }
+            set { headerText.Text = value; }
         }
 
 

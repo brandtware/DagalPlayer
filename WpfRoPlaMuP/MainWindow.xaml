@@ -6,16 +6,22 @@
         xmlns:local="clr-namespace:DagalPlayer"
         mc:Ignorable="d"
         Title="Dagal" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="local:RPSceneTreeViewItem">
+            <EventSetter Event="MouseDoubleClick" Handler="trvScenes_MouseDoubleClick"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
             <RowDefinition Height="32"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ToolBar Grid.Column="0" Grid.Row="0">
+        <ToolBar Grid.Column="0" Grid.Row="1">
             <Button ToolTip="Neuer Ordner" Click="bNewItem_Click" x:Name="bNewFolder">
                 <Image Source="/Icons/AddFolder.png" />
             </Button>
@@ -32,11 +38,18 @@
                 <Image Source="/Icons/Stop.png" />
             </Button>
         </ToolBar>
-        <TreeView x:Name="trvScenes" Grid.Column="0" Grid.Row="1" SelectedItemChanged="trvScenes_SelectedItemChanged">
-                
+        <TreeView x:Name="trvScenes" Grid.Column="0" Grid.Row="2" SelectedItemChanged="trvScenes_SelectedItemChanged">
+            
         </TreeView>
-        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" x:Name="spTracks">
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" x:Name="spTracks">
             
         </StackPanel>
+        <Menu Grid.Row="0" Grid.Column="0">
+            <MenuItem Header="Datei">
+                <MenuItem Header="Laden" Click="miLaden_Click"/>
+                <MenuItem Header="Speichern" Click="miSpeichern_Click"/>
+                <MenuItem Header="Beenden" Click="miBeenden_Click"/>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>

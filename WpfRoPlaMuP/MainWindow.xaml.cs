@@ -20,6 +20,8 @@ namespace DagalPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly string FILE_FILTER = "Dagal Szenenset (*.dgl)|*.dgl";
+
         public RPSceneTreeViewItem? activeScene { get; set; } = null;
         public RPSceneTreeViewItem? selectedScene { get; set; } = null;
 
@@ -90,7 +92,7 @@ namespace DagalPlayer
 
         private void bPlay_Click(object sender, RoutedEventArgs e)
         {
-            if (activeScene == null && trvScenes.SelectedItem is RPSceneTreeViewItem sc)
+            if (activeScene == null && trvScenes.SelectedItem is RPSceneTreeViewItem sc && sc != activeScene)
             { 
                 activeScene = sc; 
             }
@@ -112,6 +114,39 @@ namespace DagalPlayer
                 {
                     c.Stop();
                 }
+            }
+        }
+
+        private void miLaden_Click(object sender, RoutedEventArgs e)
+        {
+            var ofd = new System.Windows.Forms.OpenFileDialog() { Filter = FILE_FILTER };
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            { 
+            
+            }
+        }
+
+        private void miSpeichern_Click(object sender, RoutedEventArgs e)
+        {
+            var sfd = new System.Windows.Forms.SaveFileDialog() { Filter = FILE_FILTER };
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+            }
+        }
+
+        private void miBeenden_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
+
+        private void trvScenes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is RPSceneTreeViewItem tvi && tvi != null)
+            { 
+                bStop_Click(sender, e);
+                activeScene = tvi;
+                bPlay_Click(sender, e);
             }
         }
     }

@@ -101,6 +101,7 @@ namespace DagalPlayer
 
         private void DisposeReader()
         {
+            // TODO: nix disposen was noch in Verwendung ist
             if (sp is VorbisWaveReader vwr)
             {
                 vwr.Dispose();
