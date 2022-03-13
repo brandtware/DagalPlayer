@@ -15,5 +15,11 @@ namespace DagalPlayer
         ItemCollection Items { get; }
         string NodeType { get; }
         DependencyObject Parent { get; }
+        /// <summary>
+        /// Needed for Save Method
+        /// </summary>
+        /// <returns></returns>
+        string ToString();
+        void FromString(string text);
     }
 }

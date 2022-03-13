@@ -30,6 +30,10 @@ namespace DagalPlayer
         {
             InitializeComponent();
             trvScenes.Items.Add(new RPFolderTreeViewItem() { Header = "Szenenliste", IsExpanded = true });
+            if (!string.IsNullOrEmpty(Properties.MySettings.Default.activePlaylist))
+            {
+                PlaylistSerializer.Load(Properties.MySettings.Default.activePlaylist, trvScenes);
+            }
         }
 
         private void trvScenes_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -123,7 +127,16 @@ namespace DagalPlayer
             var ofd = new System.Windows.Forms.OpenFileDialog() { Filter = FILE_FILTER };
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             { 
-                PlaylistSerializer.Load (ofd.FileName, trvScenes);
+                var success = PlaylistSerializer.Load (ofd.FileName, trvScenes);
+                if (success)
+                {
+                    Properties.MySettings.Default.activePlaylist = ofd.FileName;
+                    Properties.MySettings.Default.Save();
+                }
+                else
+                {
+                    MessageBox.Show("Playlist konnte nicht geladen werden.");
+                }
             }
         }
 
@@ -132,7 +145,13 @@ namespace DagalPlayer
             var sfd = new System.Windows.Forms.SaveFileDialog() { Filter = FILE_FILTER };
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                PlaylistSerializer.Save (sfd.FileName, trvScenes);
+                var root = trvScenes.Items[0] as IRPTreeViewItem;
+                if (root != null)
+                {
+                    PlaylistSerializer.Save(sfd.FileName, root);
+                    Properties.MySettings.Default.activePlaylist = sfd.FileName;
+                    Properties.MySettings.Default.Save();
+                }
             }
         }
 

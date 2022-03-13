@@ -30,4 +30,19 @@
     <PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Properties\MySettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MySettings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\MySettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>MySettings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
 </Project>

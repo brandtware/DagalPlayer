@@ -31,5 +31,17 @@ namespace DagalPlayer
 
         public string NodeType => "Ordner";
         public string Description { get; set; } = String.Empty;
+
+        public override string ToString()
+        {
+            return $"F|{Text}|{Description.ReplaceLineEndings ("<br>")}\r\n";
+        }
+
+        public void FromString(string text)
+        {
+            var parts = text.Split('|');
+            this.Text = parts[1];
+            this.Description = parts[2].Replace ("<br>", Environment.NewLine);
+        }
     }
 }
